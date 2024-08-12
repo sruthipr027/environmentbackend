@@ -1,25 +1,6 @@
 const SensorData = require('../Models/sensorDataSchema');
 
-/* exports.sensor = async (req, res) => {
-    console.log(req.body);
-    console.log('Incoming data:', req.body);  
-    const { ph, tss, tds, bod, cod, chloride } = req.body;
-    try {
-        const newData = new sensorData({
-            ph,
-            tss,
-            tds,
-            bod,
-            cod,
-            chloride
-        });
-        await newData.save();
-       return res.status(201).json(newData);
-    } catch (err) {
-        console.error('Error saving sensor data:', err);
-        res.status(500).json({ error: 'Failed to save sensor data' });
-    }
-}; */
+
  exports.sensor = async (req, res) => {
     try {
         const { ph, tss, tds, bod, cod, chloride } = req.body;
