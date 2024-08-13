@@ -24,4 +24,4 @@ const postData = async () => {
 };
 
 // Post data every 20 seconds
-/* setInterval(postData, 20000); */
+setInterval(postData, 300000); 

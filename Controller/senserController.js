@@ -3,7 +3,7 @@ const SensorData = require('../Models/sensorDataSchema');
 
  exports.sensor = async (req, res) => {
     try {
-        const { ph, tss, tds, bod, cod, chloride } = req.body;
+        const { ph, tss, tds, bod, cod, chloride ,timestamp} = req.body;
 
         const sensorData = new SensorData({
             ph,
@@ -12,6 +12,7 @@ const SensorData = require('../Models/sensorDataSchema');
             bod,
             cod,
             chloride,
+            timestamp
         });
 
         await sensorData.save();
@@ -32,12 +33,12 @@ const SensorData = require('../Models/sensorDataSchema');
     }
 };
 
-exports.getSensorReport= async(req,res)=>{
+exports.getSensorReport = async (req, res) => {
     try {
-        const { timeframe, columnname } = req.params;
+        const { columnname, timestamp } = req.params;  // Ensure correct extraction of params
         let startDate;
 
-        switch (timeframe) {
+       /*  switch (timestamp) {
             case 'daily':
                 startDate = new Date();
                 startDate.setHours(0, 0, 0, 0);
@@ -59,18 +60,16 @@ exports.getSensorReport= async(req,res)=>{
                 break;
             default:
                 return res.status(400).json({ message: 'Invalid timeframe specified' });
-        }
+        } */
 
-        const phData = await SensorData.find({ 
+        const sensorData = await SensorData.find({ 
             timestamp: { $gte: startDate } 
         }).select(`${columnname} timestamp`);
-        console.log(phData);
+        console.log(sensorData);
 
-        res.status(200).json(phData);
+        res.status(200).json(sensorData);
 
     } catch (error) {
         res.status(500).json({ message: 'Server error: ' + error.message });
     }
-
-
 }

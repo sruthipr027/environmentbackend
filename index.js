@@ -9,7 +9,7 @@ evServer.use(cors())
 evServer.use(express.json())
 evServer.use(router)
 
-const PORT = 4000 || process.env
+const PORT = 5000 || process.env
 evServer.listen(PORT, ()=>{
     console.log(`Server Running successfully At Port ${PORT}` );
 })
